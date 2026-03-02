@@ -1,65 +1,111 @@
-import Image from "next/image";
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <>
+      <Hero />
+
+      {/* Intro */}
+      <section className="py-24 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <p className="text-sm text-mid-gray leading-loose">
+              bendteis is een creatief merk dat draait om fotografie met de
+              Fujifilm X100VI. Analoge esthetiek, digitale precisie. Daarnaast
+              help ik merken groeien met marketing en AI automation.
+            </p>
+          </motion.div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Photo preview */}
+      <section className="px-6 pb-24">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
+            {[1, 2, 3, 4].map((i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="aspect-square bg-light-gray border border-warm-gray/30 flex items-center justify-center"
+              >
+                <span className="text-mid-gray text-xs">DSCF{1746 + i}</span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link
+              href="/portfolio"
+              className="text-xs tracking-widest uppercase text-mid-gray border-b border-warm-gray pb-1 hover:text-ink hover:border-ink transition-colors"
+            >
+              alle foto&apos;s bekijken
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Services mention */}
+      <section className="py-24 px-6 border-t border-warm-gray/30">
+        <div className="max-w-2xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="font-heading text-3xl md:text-4xl text-ink mb-6">
+              Meer dan fotografie
+            </h2>
+            <p className="text-sm text-mid-gray leading-loose mb-4">
+              Naast fotografie bied ik ook marketing en AI automation aan. Van
+              social media strategie tot het automatiseren van workflows — ik
+              combineer creativiteit met technologie.
+            </p>
+            <Link
+              href="/services"
+              className="text-xs tracking-widest uppercase text-mid-gray border-b border-warm-gray pb-1 hover:text-ink hover:border-ink transition-colors"
+            >
+              bekijk services
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="py-24 px-6 border-t border-warm-gray/30">
+        <div className="max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="font-heading text-3xl text-ink mb-4">
+              Interesse?
+            </h2>
+            <p className="text-sm text-mid-gray mb-8">
+              Neem contact op voor een samenwerking of een vrijblijvend gesprek.
+            </p>
+            <Link
+              href="/contact"
+              className="text-xs tracking-widest uppercase text-ink border-b border-ink pb-1 hover:text-brown hover:border-brown transition-colors"
+            >
+              contact
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 }
