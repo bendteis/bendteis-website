@@ -8,8 +8,12 @@ export default function Hero() {
     <section className="min-h-screen flex items-center justify-center relative bg-ink overflow-hidden">
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-ink/30 via-ink/10 to-ink/60 z-10" />
-      {/* Placeholder bg — vervang met echte hero foto */}
-      <div className="absolute inset-0 bg-ink" />
+      {/* Hero background photo */}
+      <img
+        src="/images/portfolio/dscf0809.jpg"
+        alt="BendTeis hero"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
       <div className="relative z-20 text-center px-6">
         <motion.h1

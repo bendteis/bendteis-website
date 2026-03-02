@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Hero from "@/components/Hero";
+import { portfolioItems } from "@/data/portfolio";
 
 export default function Home() {
   return (
@@ -31,16 +32,21 @@ export default function Home() {
       <section className="px-6 pb-24">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-            {[1, 2, 3, 4].map((i) => (
+            {portfolioItems.slice(0, 4).map((item, i) => (
               <motion.div
-                key={i}
+                key={item.id}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="aspect-square bg-light-gray border border-warm-gray/30 flex items-center justify-center"
+                className="aspect-square overflow-hidden border border-warm-gray/30"
               >
-                <span className="text-mid-gray text-xs">DSCF{1746 + i}</span>
+                <img
+                  src={item.image}
+                  alt={item.title || item.filename}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </motion.div>
             ))}
           </div>

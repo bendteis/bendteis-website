@@ -18,12 +18,12 @@ export default function PortfolioGrid() {
             className="relative aspect-square bg-light-gray border border-warm-gray/20 cursor-pointer group overflow-hidden"
             onClick={() => setLightboxIndex(index)}
           >
-            {/* Placeholder — vervang met echte afbeeldingen via next/image */}
-            <div className="w-full h-full bg-cream-dark flex items-center justify-center">
-              <span className="text-mid-gray text-xs font-body">
-                {item.filename}
-              </span>
-            </div>
+            <img
+              src={item.image}
+              alt={item.title || item.filename}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
 
             {/* Hover overlay */}
             <div className="absolute inset-0 bg-ink/0 group-hover:bg-ink/40 transition-all duration-300 flex items-end p-3 opacity-0 group-hover:opacity-100">

@@ -55,13 +55,12 @@ export default function Lightbox({
           sluiten
         </button>
 
-        {/* Image placeholder */}
-        <div className="w-full bg-ink-light border border-cream/5 flex items-center justify-center min-h-[50vh]">
-          <div className="text-center text-cream/30">
-            <p className="text-lg font-heading text-cream/60 mb-1">{item.filename}</p>
-            <p className="text-xs">{item.title}</p>
-          </div>
-        </div>
+        {/* Image */}
+        <img
+          src={item.image}
+          alt={item.title || item.filename}
+          className="w-full max-h-[80vh] object-contain"
+        />
 
         {/* Info bar */}
         <div className="flex justify-between items-center mt-4 text-xs text-cream/40">
