@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,12 +14,33 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isHome = pathname === "/";
+  const isTransparent = isHome && !scrolled && !mobileOpen;
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-sm border-b border-warm-gray/50">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isTransparent
+          ? "bg-transparent border-b border-transparent"
+          : "bg-cream/90 backdrop-blur-sm border-b border-warm-gray/50"
+      }`}
+    >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-heading text-2xl text-ink tracking-tight">
+        <Link
+          href="/"
+          className={`font-heading text-2xl tracking-tight transition-colors duration-500 ${
+            isTransparent ? "text-cream" : "text-ink"
+          }`}
+        >
           bendteis
         </Link>
 
@@ -29,10 +50,14 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`text-xs tracking-widest uppercase transition-colors ${
-                pathname === link.href
-                  ? "text-ink"
-                  : "text-mid-gray hover:text-ink"
+              className={`text-xs tracking-widest uppercase transition-colors duration-500 ${
+                isTransparent
+                  ? pathname === link.href
+                    ? "text-cream"
+                    : "text-cream/50 hover:text-cream"
+                  : pathname === link.href
+                    ? "text-ink"
+                    : "text-mid-gray hover:text-ink"
               }`}
             >
               {link.label}
@@ -48,15 +73,23 @@ export default function Navbar() {
         >
           <motion.span
             animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-            className="block w-5 h-px bg-ink"
+            className={`block w-5 h-px transition-colors duration-500 ${
+              isTransparent ? "bg-cream" : "bg-ink"
+            }`}
           />
           <motion.span
             animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="block w-5 h-px bg-ink"
+            className={`block w-5 h-px transition-colors duration-500 ${
+              isTransparent ? "bg-cream" : "bg-ink"
+            }`}
           />
           <motion.span
-            animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-            className="block w-5 h-px bg-ink"
+            animate={
+              mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+            }
+            className={`block w-5 h-px transition-colors duration-500 ${
+              isTransparent ? "bg-cream" : "bg-ink"
+            }`}
           />
         </button>
       </div>

@@ -11,6 +11,8 @@
   --color-warm-gray: #D4CFC7;
   --color-mid-gray: #8A8278;
   --color-light-gray: #E8E4DE;
+  --color-warm-dark: #1C1814;
+  --color-amber: #C4843A;
   --font-heading: "DM Serif Display", serif;
   --font-body: "IBM Plex Mono", monospace;
 }
