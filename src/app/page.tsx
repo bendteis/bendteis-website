@@ -3,356 +3,473 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import { portfolioItems } from "@/data/portfolio";
+import { portfolioItems, type PortfolioItem } from "@/data/portfolio";
+
+const statementPhotos = [
+  { item: portfolioItems[2], label: "Reisfotografie", aspect: "aspect-[4/5]" },
+  {
+    item: portfolioItems[7],
+    label: "Straatfotografie",
+    aspect: "aspect-[3/4]",
+  },
+  { item: portfolioItems[13], label: "Architectuur", aspect: "aspect-[2/3]" },
+  { item: portfolioItems[17], label: "Natuur", aspect: "aspect-[3/4]" },
+  { item: portfolioItems[27], label: "Landschap", aspect: "aspect-[4/5]" },
+];
+
+const aboutPhotos = [
+  portfolioItems[4],
+  portfolioItems[15],
+  portfolioItems[20],
+];
+
+const collectionPhotos = [
+  { item: portfolioItems[23], label: "Eilandlicht", num: "01" },
+  { item: portfolioItems[25], label: "Kustlijn", num: "02" },
+  { item: portfolioItems[28], label: "Funchal", num: "03" },
+  { item: portfolioItems[30], label: "Natuur", num: "04" },
+  { item: portfolioItems[33], label: "Bergen", num: "05" },
+  { item: portfolioItems[35], label: "Architectuur", num: "06" },
+  { item: portfolioItems[38], label: "Gouden uur", num: "07" },
+];
+
+function NumberedPhoto({
+  item,
+  label,
+  num,
+  delay = 0,
+}: {
+  item: PortfolioItem;
+  label: string;
+  num: string;
+  delay?: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+    >
+      <p className="text-[10px] tracking-[0.2em] text-mid-gray mb-2">
+        {num}/
+      </p>
+      <div className="relative overflow-hidden aspect-[4/3] group">
+        <img
+          src={item.image}
+          alt={label}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+      </div>
+      <p className="text-[10px] tracking-[0.15em] uppercase text-mid-gray mt-2">
+        {label}
+      </p>
+    </motion.div>
+  );
+}
+
+function Divider() {
+  return (
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="border-t border-warm-gray/50" />
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <>
       <Hero />
 
+      <Divider />
+
       {/* Statement */}
-      <section className="py-24 md:py-32 px-6">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
+      <section className="py-20 md:py-28 px-6">
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="font-heading text-3xl md:text-5xl lg:text-6xl text-ink leading-[1.05] uppercase mb-6"
           >
-            <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-ink leading-[1.1] mb-8">
-              Analoge warmte,
-              <br />
-              digitale precisie,
-              <br />
-              creatief verhaal
-            </h2>
-            <p className="text-sm text-mid-gray leading-loose max-w-lg">
-              bendteis is een creatief merk dat draait om fotografie met de
-              Fujifilm X100VI. Daarnaast help ik merken groeien met marketing en
-              AI automation.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Portfolio Collection 1: MADEIRA */}
-      <section className="relative py-16 md:py-24 px-6">
-        {/* Background watermark — flows behind content */}
-        <div className="absolute inset-0 flex items-center overflow-hidden pointer-events-none select-none">
-          <p className="text-[6rem] md:text-[14rem] font-heading text-warm-gray/[0.04] leading-none tracking-tight whitespace-nowrap -translate-x-[10%]">
-            LICHT &middot; KLEUR &middot; WARMTE
-          </p>
-        </div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          {/* Collection label */}
+            Ik breng warmte en
+            <br />
+            verhaal in elke foto
+          </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-[10px] tracking-[0.3em] uppercase text-amber mb-6"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-sm text-mid-gray leading-loose max-w-md mx-auto"
           >
-            collectie 01
+            Ik begon mijn reis als fotograaf met landschappen en natuur, en
+            ontwikkelde me richting portret- en straatfotografie met een analoge
+            esthetiek.
           </motion.p>
+        </div>
 
-          {/* Desktop collage — overlapping photos */}
-          <div className="hidden md:block relative min-h-[75vh]">
-            {/* Large photo — left */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="absolute top-0 left-0 w-[54%] h-[90%] overflow-hidden group"
-            >
-              <img
-                src={portfolioItems[4].image}
-                alt="Madeira"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-amber/5 mix-blend-multiply" />
-              <div className="absolute inset-0 bg-gradient-to-t from-warm-dark/70 via-warm-dark/10 to-transparent" />
-            </motion.div>
-
-            {/* Title — on the main photo */}
-            <h2 className="absolute bottom-[18%] left-[3%] font-heading text-[7rem] lg:text-[9rem] text-cream leading-[0.8] z-30">
-              MADEIRA
-            </h2>
-
-            {/* Top right photo — overlaps with slight rotation */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="absolute top-[3%] right-0 w-[43%] h-[52%] overflow-hidden group z-20 rotate-[1deg] shadow-2xl"
-            >
-              <img
-                src={portfolioItems[6].image}
-                alt="Madeira"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-amber/5 mix-blend-multiply" />
-            </motion.div>
-
-            {/* Bottom right photo */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="absolute bottom-[2%] right-[6%] w-[36%] h-[43%] overflow-hidden group z-20 shadow-2xl"
-            >
-              <img
-                src={portfolioItems[9].image}
-                alt="Madeira"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-amber/5 mix-blend-multiply" />
-            </motion.div>
+        {/* Staggered photo row — arc pattern via items-end + different aspects */}
+        <div className="max-w-5xl mx-auto">
+          <div className="hidden md:flex items-end gap-4">
+            {statementPhotos.map(({ item, label, aspect }, i) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                className="flex-1"
+              >
+                <div className={`relative overflow-hidden group ${aspect}`}>
+                  <img
+                    src={item.image}
+                    alt={label}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+                </div>
+                <p className="text-[10px] tracking-[0.15em] uppercase text-mid-gray mt-3">
+                  {label}
+                </p>
+              </motion.div>
+            ))}
           </div>
 
-          {/* Mobile collage — overlapping with rotation */}
-          <div className="md:hidden">
-            <div className="aspect-[3/4] overflow-hidden relative">
-              <img
-                src={portfolioItems[4].image}
-                alt="Madeira"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-warm-dark/70 via-warm-dark/10 to-transparent" />
-              <h2 className="absolute bottom-20 left-4 font-heading text-6xl text-cream leading-[0.8]">
-                MADEIRA
-              </h2>
+          {/* Mobile: 2-column grid */}
+          <div className="md:hidden grid grid-cols-2 gap-3">
+            {statementPhotos.slice(0, 4).map(({ item, label }, i) => (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+              >
+                <div className="relative overflow-hidden aspect-[3/4]">
+                  <img
+                    src={item.image}
+                    alt={label}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+                </div>
+                <p className="text-[10px] tracking-[0.15em] uppercase text-mid-gray mt-2">
+                  {label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* About / Mijn Aanpak */}
+      <section className="py-20 md:py-28 px-6 relative overflow-hidden">
+        <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-gold/[0.04] rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            {/* Left column */}
+            <div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="font-heading text-4xl md:text-5xl text-ink uppercase mb-6">
+                  Mijn Aanpak
+                </h2>
+                <p className="text-sm text-mid-gray leading-loose mb-8 max-w-sm">
+                  Mijn camera is mijn schetsboek. Ik shoot op gevoel en probeer
+                  unieke, eerlijke momenten vast te leggen die tijdloos zijn.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="max-w-[280px]"
+              >
+                <div className="relative overflow-hidden aspect-[4/3] group">
+                  <img
+                    src={aboutPhotos[0].image}
+                    alt="Madeira"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+                </div>
+                <p className="text-[10px] tracking-[0.15em] uppercase text-mid-gray mt-2">
+                  Madeira, 2024
+                </p>
+              </motion.div>
             </div>
-            <div className="flex gap-3 -mt-12 relative z-10 px-4">
-              <div className="flex-1 aspect-[4/5] overflow-hidden shadow-xl -rotate-1">
-                <img
-                  src={portfolioItems[6].image}
-                  alt="Madeira"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex-1 aspect-square overflow-hidden shadow-xl rotate-1 mt-6">
-                <img
-                  src={portfolioItems[9].image}
-                  alt="Madeira"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+
+            {/* Right column */}
+            <div>
+              {/* Overlapping photo collage */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="relative h-[320px] md:h-[400px] mb-12"
+              >
+                <div className="absolute top-0 right-0 w-[65%] h-[85%] overflow-hidden z-10 group">
+                  <img
+                    src={aboutPhotos[1].image}
+                    alt="Madeira"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+                </div>
+                <div className="absolute bottom-0 left-0 w-[55%] h-[70%] overflow-hidden z-20 shadow-2xl group">
+                  <img
+                    src={aboutPhotos[2].image}
+                    alt="Madeira"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+                </div>
+              </motion.div>
+
+              <div className="w-full h-px bg-warm-gray/30 mb-8" />
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mb-8"
+              >
+                <h3 className="font-heading text-2xl text-ink uppercase mb-3">
+                  Mijn Doel
+                </h3>
+                <p className="text-sm text-mid-gray leading-loose max-w-sm">
+                  Een warme, ontspannen sfeer creëren tijdens het vastleggen
+                  &mdash; zodat je je comfortabel voelt en het proces kunt
+                  genieten.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                <h3 className="font-heading text-2xl text-ink uppercase mb-3">
+                  Mijn Principes
+                </h3>
+                <p className="text-sm text-mid-gray leading-loose max-w-sm">
+                  Iedere klant en elk project verdient een individuele aanpak. Ik
+                  probeer het verhaal achter het beeld te begrijpen.
+                </p>
+              </motion.div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Description */}
-          <div className="mt-8 md:mt-12">
-            <p className="text-sm text-mid-gray leading-loose mb-4 max-w-md">
-              Eilandlicht vastgelegd met de Fujifilm X100VI. Analoge
-              filmkleuren, handmatige scherpte.
-            </p>
+      <Divider />
+
+      {/* Recent Collection */}
+      <section className="py-20 md:py-28 px-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <div className="grid md:grid-cols-2 gap-6 mb-12">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="font-heading text-3xl md:text-5xl text-ink uppercase leading-[1.05]"
+            >
+              Recente Clicks
+              <br />
+              Uit Mijn Collectie
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-sm text-mid-gray leading-loose md:pt-4 max-w-sm md:ml-auto"
+            >
+              Ik creëer visuele verhalen die unieke ervaringen vastleggen. Met
+              mijn passie voor het ontdekken van schoonheid in elk moment.
+            </motion.p>
+          </div>
+
+          {/* Collection date */}
+          <motion.h3
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="font-heading text-2xl text-ink uppercase mb-8"
+          >
+            Madeira 2024
+          </motion.h3>
+
+          {/* Row 1: 3 photos */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+            {collectionPhotos.slice(0, 3).map((photo, i) => (
+              <NumberedPhoto
+                key={photo.item.id}
+                item={photo.item}
+                label={photo.label}
+                num={photo.num}
+                delay={i * 0.1}
+              />
+            ))}
+          </div>
+
+          {/* Row 2: 4 columns */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <NumberedPhoto
+              item={collectionPhotos[3].item}
+              label={collectionPhotos[3].label}
+              num={collectionPhotos[3].num}
+            />
+            <NumberedPhoto
+              item={collectionPhotos[4].item}
+              label={collectionPhotos[4].label}
+              num={collectionPhotos[4].num}
+              delay={0.1}
+            />
+
+            {/* Date card + photo */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h4 className="font-heading text-2xl md:text-3xl text-ink uppercase leading-tight mb-4">
+                Collectie
+                <br />
+                2024
+              </h4>
+              <p className="text-[10px] tracking-[0.2em] text-mid-gray mb-2">
+                {collectionPhotos[5].num}/
+              </p>
+              <div className="relative overflow-hidden aspect-[4/3] group">
+                <img
+                  src={collectionPhotos[5].item.image}
+                  alt={collectionPhotos[5].label}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+              </div>
+              <p className="text-[10px] tracking-[0.15em] uppercase text-mid-gray mt-2">
+                {collectionPhotos[5].label}
+              </p>
+            </motion.div>
+
+            <NumberedPhoto
+              item={collectionPhotos[6].item}
+              label={collectionPhotos[6].label}
+              num={collectionPhotos[6].num}
+              delay={0.3}
+            />
+          </div>
+
+          {/* View all link */}
+          <div className="mt-12 text-center">
             <Link
               href="/portfolio"
-              className="text-xs tracking-widest uppercase text-mid-gray border-b border-warm-gray pb-1 hover:text-ink hover:border-ink transition-colors"
+              className="inline-block text-xs tracking-widest uppercase border border-amber/40 px-8 py-4 text-amber hover:border-amber hover:bg-amber hover:text-cream transition-all"
             >
-              bekijk alle
+              bekijk alle foto&apos;s
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Portfolio Collection 2: LICHT & SCHADUW */}
-      <section className="relative py-16 md:py-24 px-6">
-        {/* Background watermark */}
-        <div className="absolute inset-0 flex items-center justify-end overflow-hidden pointer-events-none select-none">
-          <p className="text-[6rem] md:text-[14rem] font-heading text-warm-gray/[0.04] leading-none tracking-tight whitespace-nowrap translate-x-[10%]">
-            VERHAAL &middot; BEELD &middot; FILM
-          </p>
-        </div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          {/* Collection label */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-[10px] tracking-[0.3em] uppercase text-amber mb-6 md:text-right"
-          >
-            collectie 02
-          </motion.p>
-
-          {/* Desktop collage — reversed layout */}
-          <div className="hidden md:block relative min-h-[75vh]">
-            {/* Large photo — right */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="absolute top-0 right-0 w-[54%] h-[90%] overflow-hidden group"
-            >
-              <img
-                src={portfolioItems[22].image}
-                alt="Licht & Schaduw"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-amber/5 mix-blend-multiply" />
-              <div className="absolute inset-0 bg-gradient-to-t from-warm-dark/70 via-warm-dark/10 to-transparent" />
-            </motion.div>
-
-            {/* Title */}
-            <h2 className="absolute bottom-[18%] right-[3%] font-heading text-[6rem] lg:text-[8rem] text-cream leading-[0.8] z-30 text-right">
-              LICHT &<br />
-              SCHADUW
-            </h2>
-
-            {/* Top left photo — overlapping with rotation */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="absolute top-[3%] left-0 w-[43%] h-[52%] overflow-hidden group z-20 -rotate-[1deg] shadow-2xl"
-            >
-              <img
-                src={portfolioItems[27].image}
-                alt="Licht & Schaduw"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-amber/5 mix-blend-multiply" />
-            </motion.div>
-
-            {/* Bottom left photo */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="absolute bottom-[2%] left-[6%] w-[36%] h-[43%] overflow-hidden group z-20 shadow-2xl"
-            >
-              <img
-                src={portfolioItems[32].image}
-                alt="Licht & Schaduw"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-amber/5 mix-blend-multiply" />
-            </motion.div>
-          </div>
-
-          {/* Mobile collage */}
-          <div className="md:hidden">
-            <div className="aspect-[3/4] overflow-hidden relative">
-              <img
-                src={portfolioItems[22].image}
-                alt="Licht & Schaduw"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-warm-dark/70 via-warm-dark/10 to-transparent" />
-              <h2 className="absolute bottom-20 right-4 font-heading text-5xl text-cream leading-[0.8] text-right">
-                LICHT &<br />
-                SCHADUW
-              </h2>
-            </div>
-            <div className="flex gap-3 -mt-12 relative z-10 px-4">
-              <div className="flex-1 aspect-square overflow-hidden shadow-xl rotate-1 mt-6">
-                <img
-                  src={portfolioItems[27].image}
-                  alt="Licht & Schaduw"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex-1 aspect-[4/5] overflow-hidden shadow-xl -rotate-1">
-                <img
-                  src={portfolioItems[32].image}
-                  alt="Licht & Schaduw"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Description */}
-          <div className="mt-8 md:mt-12 md:text-right">
-            <p className="text-sm text-mid-gray leading-loose mb-4 max-w-md md:ml-auto">
-              Het spel tussen licht en donker. Contrasten die het verhaal
-              vertellen.
-            </p>
-            <Link
-              href="/portfolio"
-              className="text-xs tracking-widest uppercase text-mid-gray border-b border-warm-gray pb-1 hover:text-ink hover:border-ink transition-colors"
-            >
-              bekijk alle
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* View all photos button */}
-      <section className="pb-24 px-6">
-        <div className="max-w-6xl mx-auto text-center">
-          <Link
-            href="/portfolio"
-            className="inline-block text-xs tracking-widest uppercase border border-warm-gray px-8 py-4 text-mid-gray hover:border-ink hover:text-ink transition-colors"
-          >
-            bekijk alle foto&apos;s
-          </Link>
-        </div>
-      </section>
-
-      {/* Services — Dark warm section */}
-      <section className="py-24 md:py-32 px-6 bg-warm-dark relative overflow-hidden">
+      {/* Contact — Dark */}
+      <section className="py-20 md:py-28 px-6 bg-warm-dark relative overflow-hidden">
         <div className="absolute inset-0 bg-amber/[0.02]" />
+        <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-amber/8 rounded-full blur-[150px] pointer-events-none" />
 
-        <div className="max-w-4xl mx-auto relative z-10">
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-amber/60 text-[10px] tracking-[0.3em] uppercase mb-6">
-              meer dan fotografie
+            <p className="text-[10px] tracking-[0.3em] uppercase text-gold/50 mb-3">
+              Neem direct contact op
             </p>
-            <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-cream leading-[1.1] mb-8">
-              Creativiteit
-              <br />
-              ontmoet technologie
-            </h2>
-            <p className="text-cream/50 text-sm leading-loose mb-8 max-w-lg">
-              Naast fotografie bied ik ook marketing en AI automation aan. Van
-              social media strategie tot het automatiseren van workflows — ik
-              combineer creativiteit met technologie.
-            </p>
-            <Link
-              href="/services"
-              className="text-xs tracking-widest uppercase text-cream/50 border-b border-cream/20 pb-1 hover:text-cream hover:border-cream/50 transition-colors"
-            >
-              bekijk services
-            </Link>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+              <h2 className="font-heading text-4xl md:text-6xl text-cream uppercase">
+                Contact
+              </h2>
+              <Link
+                href="/contact"
+                className="text-xs tracking-widest uppercase text-gold/60 flex items-center gap-2 hover:text-gold transition-colors"
+              >
+                Voor al je vragen <span>&rarr;</span>
+              </Link>
+            </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Contact CTA */}
-      <section className="py-24 md:py-32 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="font-heading text-4xl md:text-6xl text-ink mb-6">
-              Laten we iets
-              <br />
-              moois maken
-            </h2>
-            <p className="text-sm text-mid-gray mb-10">
-              Neem contact op voor een samenwerking of een vrijblijvend gesprek.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block text-xs tracking-widest uppercase border border-ink px-8 py-4 text-ink hover:bg-ink hover:text-cream transition-all"
+          <div className="grid md:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
             >
-              neem contact op
-            </Link>
-          </motion.div>
+              <div className="space-y-6">
+                <input
+                  type="text"
+                  placeholder="Naam"
+                  readOnly
+                  className="w-full px-0 py-3 bg-transparent border-b border-cream/20 text-sm text-cream/50 placeholder:text-cream/30 outline-none cursor-default"
+                />
+                <input
+                  type="email"
+                  placeholder="E-mailadres"
+                  readOnly
+                  className="w-full px-0 py-3 bg-transparent border-b border-cream/20 text-sm text-cream/50 placeholder:text-cream/30 outline-none cursor-default"
+                />
+                <textarea
+                  placeholder="Je bericht..."
+                  readOnly
+                  rows={4}
+                  className="w-full px-0 py-3 bg-transparent border-b border-cream/20 text-sm text-cream/50 placeholder:text-cream/30 outline-none resize-none cursor-default"
+                />
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 bg-amber text-cream text-xs tracking-widest uppercase px-6 py-3 hover:bg-amber/90 transition-colors mt-2"
+                >
+                  Verstuur Bericht <span>&rarr;</span>
+                </Link>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="hidden md:block relative overflow-hidden aspect-[4/3]"
+            >
+              <img
+                src={portfolioItems[40].image}
+                alt="Contact"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-amber/10 mix-blend-multiply pointer-events-none" />
+            </motion.div>
+          </div>
         </div>
       </section>
     </>

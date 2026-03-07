@@ -24,7 +24,8 @@ export default function Navbar() {
   }, []);
 
   const isHome = pathname === "/";
-  const isTransparent = isHome && !scrolled && !mobileOpen;
+  // Hero is now light background — no transparent mode needed
+  const isTransparent = false;
 
   return (
     <nav

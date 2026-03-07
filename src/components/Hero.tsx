@@ -1,81 +1,86 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { portfolioItems } from "@/data/portfolio";
+
+const heroPhotos = [
+  { item: portfolioItems[0], aspect: "aspect-[3/4]" },
+  { item: portfolioItems[5], aspect: "aspect-square" },
+  { item: portfolioItems[10], aspect: "aspect-[3/4]" },
+  { item: portfolioItems[22], aspect: "aspect-square" },
+];
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Warm gradient overlay — stronger for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-warm-dark/50 via-warm-dark/20 to-warm-dark/80 z-10" />
+    <section className="pt-28 md:pt-36 pb-16 px-6 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gold/[0.04] rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Warm color wash for vintage feel */}
-      <div className="absolute inset-0 bg-amber/10 mix-blend-multiply z-[5]" />
+      <div className="max-w-6xl mx-auto relative z-10">
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-xs text-mid-gray tracking-wide uppercase mb-3"
+        >
+          Hey, ik ben Bend &mdash;
+        </motion.p>
 
-      {/* Background photo */}
-      <img
-        src="/images/portfolio/dscf0809.jpg"
-        alt="BendTeis hero"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-
-      {/* Center content */}
-      <div className="relative z-20 text-center px-6">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="font-heading text-7xl md:text-9xl lg:text-[12rem] text-cream leading-[0.85]"
+          transition={{ duration: 1 }}
+          className="font-heading text-5xl md:text-7xl lg:text-[5.5rem] text-ink leading-[0.9] uppercase tracking-tight"
         >
-          BEND
+          Creatief
           <br />
-          TEIS
+          Fotograaf
         </motion.h1>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="flex items-center justify-center gap-4 mt-8"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mt-8 mb-4"
         >
-          <div className="w-8 h-px bg-cream/30" />
-          <p className="text-cream/70 text-xs tracking-[0.3em] uppercase">
-            Analoog Verhaal — Digitale Precisie
+          <p className="text-sm text-mid-gray leading-loose max-w-xs">
+            Ik leg verhalen vast met mijn Fujifilm X100VI. Analoge esthetiek,
+            digitale precisie.
           </p>
-          <div className="w-8 h-px bg-cream/30" />
+          <p className="text-[10px] tracking-[0.3em] uppercase text-amber">
+            Sinds 2024
+          </p>
         </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="text-amber/60 text-[10px] tracking-[0.25em] uppercase mt-3"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mb-10"
         >
-          Fujifilm X100VI
-        </motion.p>
+          <div className="inline-flex items-center gap-2 bg-ink text-cream text-[10px] tracking-widest uppercase px-5 py-2.5 cursor-default">
+            Scroll Down <span>&darr;</span>
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {heroPhotos.map(({ item, aspect }, i) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 + i * 0.1 }}
+              className={`relative overflow-hidden group ${aspect}`}
+            >
+              <img
+                src={item.image}
+                alt={item.location}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-amber/5 mix-blend-multiply pointer-events-none" />
+            </motion.div>
+          ))}
+        </div>
       </div>
-
-      {/* Location tag — bottom right */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-8 right-8 z-20 text-cream/40 text-[10px] tracking-[0.2em] uppercase"
-      >
-        Madeira, PT
-      </motion.p>
-
-      {/* Scroll indicator — bottom center */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
-      >
-        <span className="text-cream/30 text-[9px] tracking-[0.3em] uppercase">
-          scroll
-        </span>
-        <div className="w-px h-8 bg-gradient-to-b from-cream/25 to-transparent" />
-      </motion.div>
     </section>
   );
 }
